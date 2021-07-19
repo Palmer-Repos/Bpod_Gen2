@@ -88,7 +88,7 @@ classdef RotaryEncoderModule < handle
             end
             % Create ArCOM wrapper for USB communication with Teensy
             obj.Port = ArCOMObject_Bpod(portString, 115200);
-            obj.Port.write('C', 'uint8'); % C = handshake, X = reset data streams
+            obj.Port.write('CX', 'uint8'); % C = handshake, X = reset data streams
             response = obj.Port.read(1, 'uint8');
             if response ~= 217
                 error('Could not connect =( ')
