@@ -182,21 +182,21 @@ classdef TrialManagerObject < handle
                 RawTrialEvents.TrialEndTimestamp = obj.Round2Cycles(TrialEndTimestamp);
                 RawTrialEvents.StateTimestamps(end+1) = RawTrialEvents.EventTimestamps(end);
                 RawTrialEvents.ErrorCodes = ThisTrialErrorCodes;
-                if obj.LastTrialEndTime > 0
-                    LastTrialDeadTime = RawTrialEvents.TrialStartTimestamp - obj.LastTrialEndTime;
-                    if LastTrialDeadTime > 0.0002
-                        disp(' ');
-                        disp('*********************************************************************');
-                        disp('*                            WARNING                                *');
-                        disp('*********************************************************************');
-                        disp('TrialManager reported an inter-trial dead time of >200 microseconds.');
-                        disp('This may indicate that inter-trial code (e.g. plotting, saving data)');
-                        disp('took MATLAB more than 1 trial duration to execute. MATLAB must reach');
-                        disp('TrialManager.getTrialData() before trial end. Please check lines of');
-                        disp('your protocol main loop (e.g. with tic/toc) and optimize accordingly.');
-                        disp('*********************************************************************');
-                    end
-                end
+%                 if obj.LastTrialEndTime > 0
+%                     LastTrialDeadTime = RawTrialEvents.TrialStartTimestamp - obj.LastTrialEndTime;
+%                     if LastTrialDeadTime > 1
+%                         disp(' ');
+%                         disp('*********************************************************************');
+%                         disp('*                            WARNING                                *');
+%                         disp('*********************************************************************');
+%                         disp('TrialManager reported an inter-trial dead time of >1 second.');
+%                         disp('This may indicate that inter-trial code (e.g. plotting, saving data)');
+%                         disp('took MATLAB more than 1 trial duration to execute. MATLAB must reach');
+%                         disp('TrialManager.getTrialData() before trial end. Please check lines of');
+%                         disp('your protocol main loop (e.g. with tic/toc) and optimize accordingly.');
+%                         disp('*********************************************************************');
+%                     end
+%                 end
                 obj.LastTrialEndTime = RawTrialEvents.TrialEndTimestamp;
             else
                 stop(obj.Timer);
