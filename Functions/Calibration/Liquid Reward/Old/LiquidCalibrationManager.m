@@ -317,7 +317,7 @@ if exist(TestSavePath) ~= 7
 end
 SavePath = fullfile(BpodPath, 'Calibration Files', 'LiquidCalibration.mat');
 LiquidCal = handles.LiquidCal;
-LiquidCal(1).LastDateModified = now;
+LiquidCal(CurrentValve).LastDateModified = now;
 save(SavePath, 'LiquidCal');
 % --------------------------------------------------------------------
 function CommandMenu_Callback(hObject, eventdata, handles)
