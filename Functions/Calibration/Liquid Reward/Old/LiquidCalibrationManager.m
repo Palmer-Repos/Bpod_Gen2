@@ -317,7 +317,7 @@ if exist(TestSavePath) ~= 7
 end
 SavePath = fullfile(BpodPath, 'Calibration Files', 'LiquidCalibration.mat');
 LiquidCal = handles.LiquidCal;
-LiquidCal(CurrentValve).LastDateModified = now;
+LiquidCal(CurrentValve).LastDateModified = now; % this used to be 1, but now datetime of each valve is stored in the struct
 save(SavePath, 'LiquidCal');
 % --------------------------------------------------------------------
 function CommandMenu_Callback(hObject, eventdata, handles)
