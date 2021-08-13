@@ -323,7 +323,7 @@ if isPendingMeasurement == 0
     % Save file
     SavePath = fullfile(BpodSystem.Path.LocalDir, 'Calibration Files', 'LiquidCalibration.mat');
     LiquidCal = BpodSystem.PluginObjects.LiquidCal.CalData;
-    LiquidCal(1).LastDateModified = now;
+    LiquidCal(CurrentValve).LastDateModified = now;
     save(SavePath, 'LiquidCal');
 end
 DisplayValve;
@@ -697,7 +697,7 @@ if AllValid == 1
     end
     SavePath = fullfile(BpodSystem.Path.LocalDir, 'Calibration Files', 'LiquidCalibration.mat');
     LiquidCal = BpodSystem.PluginObjects.LiquidCal.CalData;
-    LiquidCal(1).LastDateModified = now;
+    LiquidCal(ValveIDs(x)).LastDateModified = now;
     save(SavePath, 'LiquidCal');
     BpodSystem.CalibrationTables.LiquidCal = LiquidCal;
     msgbox('Calibration files updated.', 'modal')
