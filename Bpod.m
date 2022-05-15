@@ -41,6 +41,7 @@ addpath(genpath(fullfile(BpodPath, 'Functions')));
 BpodSystem = BpodObject;
 Ver = BpodSoftwareVersion;
 disp(['Starting Bpod Console v' sprintf('%3.2f', Ver)])
+fprintf("This installation of Bpod_Gen2 is for the ScanImage computer..\n")
 
 % Try to find hardware. If none, prompt to run emulation mode.
 if nargin > 0
