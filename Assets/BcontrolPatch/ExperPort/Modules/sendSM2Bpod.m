@@ -1,3 +1,22 @@
+%{
+----------------------------------------------------------------------------
+
+This file is part of the Sanworks Bpod repository
+Copyright (C) Sanworks LLC, Rochester, New York, USA
+
+----------------------------------------------------------------------------
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3.
+
+This program is distributed  WITHOUT ANY WARRANTY and without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%}
 function ok = sendSM2Bpod(sma, varargin)
 global BpodSystem
 RunASAP = 0;
@@ -247,6 +266,22 @@ for i = 1:nWavesDeclared
         if SW(i).dio_line ~= -1
             % Map dio CHANNELS to Bpod (no bits)
             bsma.GlobalTimers.OutputChannel(i) = BpodSystem.PluginObjects.Bcontrol2Bpod_DO_Map(SW(i).dio_line+1);
+            % Set on and off events for FSM onboard channel type 
+            %(Analog and Sound module channels are set separately per module below)
+            switch BpodSystem.HW.Outputs(bsma.GlobalTimers.OutputChannel(i))
+                case 'P'
+                    bsma.GlobalTimers.OnMessage(i) = 255;
+                    bsma.GlobalTimers.OffMessage(i) = 0;
+                case 'B'
+                    bsma.GlobalTimers.OnMessage(i) = 1;
+                    bsma.GlobalTimers.OffMessage(i) = 0;
+                case 'W'
+                    bsma.GlobalTimers.OnMessage(i) = 1;
+                    bsma.GlobalTimers.OffMessage(i) = 0;
+                case 'V'
+                    bsma.GlobalTimers.OnMessage(i) = 1;
+                    bsma.GlobalTimers.OffMessage(i) = 0;
+            end
         end
     end
     if ~isempty(SW(i).analog_waveform)
